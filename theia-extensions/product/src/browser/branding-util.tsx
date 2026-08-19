@@ -169,8 +169,8 @@ export function renderUpdates(props: BrandingProps): React.ReactNode {
             Updates
         </h3>
         <div>
-            You can <ActionLink text="check for updates" onClick={props.onCheckForUpdates} /> at any time, and the application also checks automatically after
-            each launch.
+            You can <ActionLink text="check for updates" onClick={props.onCheckForUpdates} /> at any time, from here or from
+            Help {'>'} Check for Updates… The application also checks automatically after each launch.
         </div>
         <div>
             You can also download the most recent version from
