@@ -9,8 +9,9 @@
 
 import * as React from 'react';
 import { AboutDialog, AboutDialogProps, ABOUT_CONTENT_CLASS } from '@theia/core/lib/browser/about-dialog';
+import { CommandRegistry } from '@theia/core/lib/common';
 import { injectable, inject } from '@theia/core/shared/inversify';
-import { renderDocumentation, renderDownloads, renderProductName, renderSourceCode, renderSupport, renderTickets, renderWhatIs } from './branding-util';
+import { CHECK_FOR_UPDATES_COMMAND, renderBrandingSections, renderProductName } from './branding-util';
 import { VSXEnvironment } from '@theia/vsx-registry/lib/common/vsx-environment';
 import { WindowService } from '@theia/core/lib/browser/window/window-service';
 @injectable()
@@ -21,6 +22,9 @@ export class TheiaIDEAboutDialog extends AboutDialog {
 
     @inject(WindowService)
     protected readonly windowService: WindowService;
+
+    @inject(CommandRegistry)
+    protected readonly commandRegistry: CommandRegistry;
 
     protected vscodeApiVersion: string;
 
@@ -50,39 +54,19 @@ export class TheiaIDEAboutDialog extends AboutDialog {
             </div>
             {this.renderTitle()}
             <hr className='gs-hr' />
-            <div className='flex-grid'>
-                <div className='col'>
-                    {renderWhatIs(this.windowService)}
-                </div>
-            </div>
-            <div className='flex-grid'>
-                <div className='col'>
-                    {renderSupport(this.windowService)}
-                </div>
-            </div>
-            <div className='flex-grid'>
-                <div className='col'>
-                    {renderTickets(this.windowService)}
-                </div>
-            </div>
-            <div className='flex-grid'>
-                <div className='col'>
-                    {renderSourceCode(this.windowService)}
-                </div>
-            </div>
-            <div className='flex-grid'>
-                <div className='col'>
-                    {renderDocumentation(this.windowService)}
-                </div>
-            </div>
-            <div className='flex-grid'>
-                <div className='col'>
-                    {renderDownloads()}
-                </div>
-            </div>
+            {renderBrandingSections({
+                windowService: this.windowService,
+                onCheckForUpdates: this.doCheckForUpdates
+            })}
         </div>;
 
     }
+
+    /** The dialog is modal, so it has to step out of the way before the update flow can be used. */
+    protected doCheckForUpdates = () => {
+        this.close();
+        this.commandRegistry.executeCommand(CHECK_FOR_UPDATES_COMMAND);
+    };
 
     protected renderTitle(): React.ReactNode {
         return <div className='gs-header'>
