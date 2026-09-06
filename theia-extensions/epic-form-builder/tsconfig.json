@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "declaration": true,
+    "sourceMap": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+
+    /*
+     * InversifyJS (Theia's DI container) relies on decorator metadata and on
+     * property-injection running *after* the class body's own field
+     * initializers. If `useDefineForClassFields` is left at its ES2022+
+     * default of `true`, TypeScript emits `Object.defineProperty` calls for
+     * class fields that silently clobber values Inversify just injected.
+     * Keeping it `false` (the classic "assignment" semantics) avoids that
+     * well-known trap.
+     */
+    "useDefineForClassFields": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "include": ["src"]
+}

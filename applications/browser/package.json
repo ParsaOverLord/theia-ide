@@ -121,7 +121,8 @@
     "react-dom": "^19.2.8",
     "theia-ide-product-ext": "1.75.0",
     "theia-ide-epic-commands-and-menus-ext": "0.0.0",
-    "theia-ide-epic-deployer-editor-ext": "0.0.0"
+    "theia-ide-epic-deployer-editor-ext": "0.0.0",
+    "theia-ide-form-builder-ext": "0.0.0"
   },
   "devDependencies": {
     "@theia/bundle-plugin": "1.75.0",

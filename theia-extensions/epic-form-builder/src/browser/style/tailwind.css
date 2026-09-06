@@ -1,0 +1,40 @@
+/*
+ * Tailwind CSS v4 input file.
+ *
+ * IMPORTANT: we deliberately do NOT `@import "tailwindcss";` (the normal
+ * one-liner), because that bundle includes Tailwind's "Preflight" reset.
+ * Preflight rewrites bare element selectors (h1-h6, p, ul/li, button, a, ...)
+ * with no scoping, so importing it here would leak into every OTHER widget
+ * in the Theia shell, not just this one. Instead we pull in just the theme
+ * tokens and the utility classes, and leave the rest of the IDE's chrome
+ * alone. Any component that needs a "reset-like" default (e.g. a plain
+ * <button>) sets its own Tailwind classes explicitly instead of relying on
+ * Preflight.
+ *
+ * Compiled with the Tailwind CLI (see package.json -> "build:css") into
+ * lib/browser/style/index.css, which is what form-builder-widget.tsx
+ * actually imports at runtime.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/*
+ * Puck renders its drag-and-drop canvas inside a same-origin <iframe> and
+ * automatically syncs the host document's stylesheets into it, so these
+ * utility classes work both in our own toolbar chrome AND inside the
+ * canvas/preview without any extra wiring.
+ */
+
+/*
+ * Give the widget's own root node a proper positioning + sizing context.
+ * Theia/Lumino give the widget node a real pixel size, but we still want an
+ * explicit anchor so `absolute inset-0` inside FormBuilderApp reliably
+ * fills it regardless of intermediate flex/height quirks.
+ */
+.theia-form-builder-widget {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}

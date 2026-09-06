@@ -1,0 +1,46 @@
+{
+  "name": "theia-ide-form-builder-ext",
+  "version": "0.0.0",
+  "description": "A visual, drag-and-drop form builder for the Theia IDE, built on Puck (@puckeditor/core) and styled with Tailwind CSS.",
+  "license": "MIT",
+  "keywords": [
+    "theia-extension"
+  ],
+  "main": "lib/common/index",
+  "types": "lib/common/index",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/form-builder-frontend-module"
+    }
+  ],
+  "dependencies": {
+    "@puckeditor/core": "^0.23.0",
+    "@theia/core": "1.75.0",
+    "@theia/editor": "1.75.0",
+    "@theia/filesystem": "1.75.0",
+    "@theia/workspace": "1.75.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "concurrently": "^9.1.0",
+    "rimraf": "^2.7.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~5.9.3"
+  },
+  "scripts": {
+    "prepare": "yarn clean && yarn build",
+    "clean": "rimraf lib",
+    "build": "yarn build:css && tsc -p .",
+    "watch": "concurrently -n CSS,TSC -c blue,green \"yarn watch:css\" \"tsc -p . --watch\"",
+    "build:css": "npx @tailwindcss/cli -i ./src/browser/style/tailwind.css -o ./lib/browser/style/index.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./src/browser/style/tailwind.css -o ./lib/browser/style/index.css --watch"
+  }
+}

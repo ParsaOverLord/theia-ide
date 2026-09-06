@@ -22,6 +22,9 @@
       "path": "theia-extensions/epic-deployer-editor"
     },
     {
+      "path": "theia-extensions/epic-form-builder"
+    },
+    {
       "path": "applications/electron"
     },
     {
