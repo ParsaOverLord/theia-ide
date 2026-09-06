@@ -16,6 +16,12 @@
       "path": "theia-extensions/updater"
     },
     {
+      "path": "theia-extensions/epic-commands-and-menus"
+    },
+    {
+      "path": "theia-extensions/epic-deployer-editor"
+    },
+    {
       "path": "applications/electron"
     },
     {
